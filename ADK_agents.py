@@ -20,6 +20,7 @@ import numpy as np
 import requests
 import asyncio
 import pprint
+import time
 import json
 import io
 import os
@@ -83,8 +84,8 @@ def download_and_extract(url: str, data_dir: str):
     """
     Baixa um arquivo de uma URL, salva-o em um diretório específico e o extrai.
 
-    A função verifica se o arquivo já foi baixado e se o conteúdo já foi
-    extraído antes de executar as operações, evitando trabalho redundante.
+    A função implementa uma lógica de 5 tentativas para o download em caso de
+    falha de conexão. Se não conseguir após as tentativas, a execução é abortada.
 
     Args:
         url: A URL do arquivo a ser baixado.
@@ -100,24 +101,43 @@ def download_and_extract(url: str, data_dir: str):
 
     # Verifica se o arquivo já existe para evitar um novo download.
     if not os.path.exists(archive_path):
-        print(f"--- Baixando arquivo de {url} para {archive_path} ---")
-        try:
-            response = requests.get(url, stream=True)
-            # Lança uma exceção para respostas com erro (ex: 404, 500).
-            response.raise_for_status()
-            with open(archive_path, 'wb') as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    f.write(chunk)
-            print("--- Download concluído com sucesso. ---")
-        except requests.exceptions.RequestException as e:
-            print(f"Erro ao baixar o arquivo: {e}")
-            return # Interrompe a execução se o download falhar.
+        print(f"--- Verificando o arquivo em {url} ---")
+        
+        # --- LÓGICA DE RETENTATIVA ---
+        max_retries = 5
+        for attempt in range(max_retries):
+            try:
+                print(f"--- Tentativa {attempt + 1}/{max_retries} de baixar o arquivo...")
+                response = requests.get(url, stream=True)
+                # Lança uma exceção para respostas com erro (ex: 404, 500).
+                response.raise_for_status()
+                
+                with open(archive_path, 'wb') as f:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        f.write(chunk)
+                
+                print("--- Download concluído com sucesso. ---")
+                break  # Se o download for bem-sucedido, sai do loop de tentativas.
+
+            except requests.exceptions.RequestException as e:
+                print(f"Erro na tentativa {attempt + 1}/{max_retries}: {e}")
+                # Se não for a última tentativa, espera antes de tentar novamente.
+                if attempt < max_retries - 1:
+                    print("--- Aguardando 5 segundos antes de tentar novamente. ---")
+                    time.sleep(5)
+        else:
+            # Este bloco `else` pertence ao `for`. Ele só é executado se o loop
+            # terminar sem um `break`, ou seja, todas as tentativas falharam.
+            print(f"--- Todas as {max_retries} tentativas de download falharam. Abortando a execução. ---")
+            # Remove o arquivo parcialmente baixado, se houver.
+            if os.path.exists(archive_path):
+                os.remove(archive_path)
+            return # Interrompe a função.
+            
     else:
         print(f"--- O arquivo '{archive_path}' já existe. Pulando o download. ---")
 
     # Verifica se o conteúdo já foi extraído.
-    # Esta verificação assume que o arquivo .zip contém uma pasta principal
-    # com o mesmo nome do arquivo (ex: 'ml-latest-small.zip' -> 'ml-latest-small/').
     extracted_folder_name = os.path.splitext(filename)[0]
     expected_extracted_path = os.path.join(data_dir, extracted_folder_name)
 
