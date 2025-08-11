@@ -52,7 +52,7 @@ GOOGLE_API_KEY='SUA_API_KEY_AQUI'
 
 **Importante:** Substitua `'SUA_API_KEY_AQUI'` pela chave de API que você obteve do Google AI Studio.
 
-### 3\. Execução
+### 3\. Executar
 
 Você pode executar a pipeline de duas maneiras:
 
