@@ -94,7 +94,7 @@ INITIAL_QUERY = (
 # Query do usuário
 INITIAL_QUERY = (
     f"Verifique os dados contidos na pasta '{DATA_DIR}'."
-    "O objetivo é prever a **taxa de distorção idade-série** das turmas. "  # <-- Objetivo de Regressão
+    "O objetivo é prever a relação/proporção de alunos por docente em cada escola."  # <-- Objetivo de Regressão
 )
 ```
 
