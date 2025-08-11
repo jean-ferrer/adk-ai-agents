@@ -56,7 +56,7 @@ TUNE_HYPERPARAMETERS_SIGNAL = "REVISE HYPERPARAMETER TUNING"
 
 # Query do usuário
 INITIAL_QUERY = (
-    f"Verifique os dados contidos na pasta '{DATA_DIR}'."
+    f"Verifique os dados contidos na pasta '{DATA_DIR}'. "
     "O objetivo é prever se uma escola possui internet."                               # <-- Objetivo de Classificação
     # "O objetivo é prever a relação/proporção de alunos por docente em cada escola."  # <-- Objetivo de Regressão
 )
@@ -1078,12 +1078,12 @@ critique_agent = LlmAgent(
         - Analyze the performance dictionary from the session state key '{STATE_PERFORMANCE_METRICS}'.
         - First, identify the primary metric ('F1-Score' or 'R-squared').
         - Apply the following logic to make your decision:
-          - if score >= 0.8: Success!
+          - if score >= 0.8: SUCCESS!
           - elif 0.8 > score >= 0.6: Moderate performance. Trigger hyperparameter re-tuning.
           - elif score < 0.6: Poor performance. Signal feature re-engineering.
 
     **2. Take Action:**
-        - **In the SUCCESS case:** Your ONLY action is to call the `exit_loop` tool. Do NOT output any JSON.
+        - **For the "SUCCESS!" case:** Your ONLY action is to call the `exit_loop` tool. Do NOT output any JSON.
         - **For re-tuning:** Your output MUST be a single JSON object: {{"decision": "{TUNE_HYPERPARAMETERS_SIGNAL}", "reason": "Performance is moderate, initiating a full hyperparameter search."}}
         - **For re-engineering:** Your output MUST be a single JSON object: {{"decision": "{REENGINEER_SIGNAL}", "reason": "Feature selection seems inadequate."}}
     """,
