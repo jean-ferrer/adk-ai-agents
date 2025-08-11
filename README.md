@@ -21,7 +21,7 @@ Ao final do processo, o melhor modelo e seus metadados são salvos localmente.
   - Python 3.9+
   - Uma chave de API do Google Gemini. Você pode obter uma no [Google AI Studio](https://aistudio.google.com/app/apikey).
 
-### 2\. Instalando
+### 2\. Instalar
 
 **a. Clone o repositório:**
 
