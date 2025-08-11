@@ -55,12 +55,9 @@ TUNE_HYPERPARAMETERS_SIGNAL = "REVISE HYPERPARAMETER TUNING"
 
 # Query do usuário
 INITIAL_QUERY = (
-    f"Verifique os dados contidos na pasta '{DATA_DIR}' e encontre o arquivo principal referente às escolas. "
-    "Utilize os dicionários de dados dos datasets (se existirem). "
-    "O objetivo é prever se uma escola possui internet. "
-#    "O objetivo é prever se uma escola possui água potável. "
-    "Selecione colunas relevantes (como a localização e infraestrutura da escola) para construir o modelo."
-    "Para o workflow, utilize somente as ferramentas previamente dadas."
+    f"Verifique os dados contidos na pasta '{DATA_DIR}'."
+    "O objetivo é prever se uma escola possui internet."                      # <-- Objetivo de Classificação
+    # "O objetivo é prever a **taxa de distorção idade-série** das turmas. "  # <-- Objetivo de Regressão
 )
 
 # Carrega variáveis de ambiente
