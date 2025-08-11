@@ -2,7 +2,7 @@
 
 Este projeto demonstra uma pipeline de Machine Learning automatizada. Ele utiliza múltiplos agentes de IA (construídos com o Google ADK e Gemini) para, a partir de uma simples pergunta do usuário (query), criar de forma autônoma um modelo de **classificação ou regressão**.
 
-Como exemplo padrão, o projeto utiliza os [microdados do Censo Escolar de 2024](https://download.inep.gov.br/dados_abertos/microdados_censo_escolar_2024.zip), um dataset complexo com mais de 200 mil linhas e 400 colunas (com nomes similares).
+Como exemplo padrão, o projeto utiliza os [microdados do Censo Escolar de 2024](https://download.inep.gov.br/dados_abertos/microdados_censo_escolar_2024.zip), um dataset complexo com mais de 200 mil linhas e mais de 400 colunas com nomes similares.
 
 ## 🔄 Workflow
 
