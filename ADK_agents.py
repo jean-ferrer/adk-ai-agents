@@ -929,12 +929,12 @@ def save_model_and_metadata(model_key: str, X_train_key: str, hyperparameters: D
         # Create the output directory if it doesn't already exist
         os.makedirs(output_folder, exist_ok=True)
 
-        # 1. Save the XGBoost model using its native method
+        # Save the XGBoost model using its native method
         model = DATA_WORKSPACE[model_key]
         model_path = os.path.join(output_folder, f"{model_key}.json")
         model.save_model(model_path)
 
-        # 2. Prepare and save the metadata
+        # Prepare and save the metadata
         X_train = DATA_WORKSPACE[X_train_key]
         # Ensure all hyperparameter values are JSON serializable
         serializable_hyperparameters = {k: (v.item() if hasattr(v, 'item') else v) for k, v in hyperparameters.items()}
@@ -1124,7 +1124,7 @@ async def run_pipeline():
             processed_tool_part = False
 
             for part in event.content.parts:
-                # 1. Check for a tool call (code the agent wants to run)
+                # Check for a tool call (code the agent wants to run)
                 if hasattr(part, 'executable_code') and part.executable_code:
                     print(f"\n>> {event.author} is calling a tool:")
                     print("```python")
@@ -1132,15 +1132,14 @@ async def run_pipeline():
                     print("```")
                     processed_tool_part = True
 
-                # 2. Check for the result of a tool call
+                # Check for the result of a tool call
                 elif hasattr(part, 'code_execution_result') and part.code_execution_result:
                     output_str = pprint.pformat(part.code_execution_result.output)
                     print(f"\n>> Tool result for {event.author}:")
                     print(output_str)
                     processed_tool_part = True
 
-            # 3. If it wasn't a tool part, it's likely a "thought" from a sub-agent.
-            # The logic for accumulating a final_response from the main agent has been removed.
+            # If it wasn't a tool part, it's likely a "thought" from a sub-agent.
             if not processed_tool_part:
                 for part in event.content.parts:
                     if hasattr(part, 'text') and part.text:
@@ -1157,7 +1156,6 @@ async def run_pipeline():
         import traceback
         traceback.print_exc()
 
-    # The final print for 'final_response' has been removed.
     print("\n--- PIPELINE FINISHED ---")
 
 
