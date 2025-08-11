@@ -56,8 +56,8 @@ TUNE_HYPERPARAMETERS_SIGNAL = "REVISE HYPERPARAMETER TUNING"
 # Query do usuário
 INITIAL_QUERY = (
     f"Verifique os dados contidos na pasta '{DATA_DIR}'."
-    "O objetivo é prever se uma escola possui internet."                      # <-- Objetivo de Classificação
-    # "O objetivo é prever a **taxa de distorção idade-série** das turmas. "  # <-- Objetivo de Regressão
+    "O objetivo é prever se uma escola possui internet."                               # <-- Objetivo de Classificação
+    # "O objetivo é prever a relação/proporção de alunos por docente em cada escola."  # <-- Objetivo de Regressão
 )
 
 # Carrega variáveis de ambiente
