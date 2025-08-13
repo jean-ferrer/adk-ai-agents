@@ -8,7 +8,7 @@ Como exemplo padrão, o projeto utiliza os [microdados do Censo Escolar de 2024]
 
 A pipeline é flexível e pode construir tanto modelos de classificação quanto de regressão, dependendo do objetivo definido na query. Ela é orquestrada por um agente principal que gerencia um ciclo de trabalho entre três agentes especializados:
 
-1.  **`DataEngineerAgent`**: Explora os arquivos de dados nas pastas e subpastas do projeto, utiliza os dicionários para entender as variáveis e seleciona o target e as features mais relevantes para o objetivo.
+1.  **`DataEngineerAgent`**: Explora os arquivos de dados nas pastas e subpastas do projeto, utiliza dicionários de dados e arquivos de documentação para entender as variáveis e seleciona o target e as features mais relevantes para o objetivo.
 2.  **`DataScientistAgent`**: Carrega os dados, limpa, pré-processa, treina um modelo XGBoost (seja `XGBClassifier` ou `XGBRegressor`), avalia seu desempenho e, se necessário, realiza a otimização de hiperparâmetros.
 3.  **`CritiqueAgent`**: Analisa as métricas do modelo (`F1-Score` para classificação, `R-squared` para regressão). Se o desempenho for satisfatório, o processo é finalizado. Caso contrário, ele instrui os outros agentes a tentarem uma nova abordagem, como uma nova feature engineering, outro processamento de dados ou uma busca de hiperparâmetros automática, iniciando um novo ciclo.
 
